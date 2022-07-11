@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Парсер юлы</title>
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <header class="header">
+
+    </header>
+<div class="container">
+
+    <div class="col text-center">
+      <button type="button" class="btn btn-primary" id="start">Старт</button>
+      <button type="button" class="btn btn-danger" id="stop">Стоп</button>
+      <button type="button" class="btn btn-danger" id="test">test</button>
+    </div>
+
+
+
+    <div class="input-group mb-3">
+        <div class="p-3  bg-light">Одна ссылка одна строка. Пустых строк не должно быть</div>
+      <div class="input-group">
+        <span class="input-group-text">Ссылки для парсинга</span>
+        <textarea class="form-control" id="id_links_category" placeholder="Ссылки на категории можно с фильтрами" aria-label="With textarea"></textarea>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col border">Сколько объявлений найдено</div>
+        <div class="col border" id="id_find_links">0</div>
+    </div>
+
+    <div class="row">
+        <div class="col border">Обработано объявлений</div>
+        <div class="col border" id="id_parsed_link_count">0</div>
+    </div>
+
+    <div class="row">
+      <div class="col border">Объявлений с телефоном</div>
+      <div class="col border" id="id_phone_availability">0</div>
+    </div>
+
+    <div class="row">
+      <div class="col border">Статус работы</div>
+      <div class="col border" id="id_message"><!--В процессе \ работа закончена--></div>
+    </div>
+
+    <div class="input-group mb-3">
+        <div class="p-3  bg-light">Прокси. Формат записи: ip:порт:логин:пароль</div>
+      <div class="input-group">
+        <span class="input-group-text">Прокси.</span>
+        <textarea class="form-control" id="id_proxies" placeholder="Пример: 45.142.28.83:8094:whrfkfgi:hakqnkk7dxx7" aria-label="With textarea"></textarea>
+      </div>
+    </div>
+</div>
+
+
+    <script src="{% static 'app_parser_youla/js/main.js' %}" defer></script>
+</body>
+</html>
