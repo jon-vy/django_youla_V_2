@@ -33,8 +33,8 @@ $("#start").click(function(e){// нажал на кнопку старт
 //                        respons = JSON.parse(data);
                         console.log(data.length);
                         console.log(data);
-                        $('#id_download').append('<a href="http://xn--b1aaibmdhgx7gra.xn--p1ai/styl.js" download="результат.zip">Скачать результат</a>');
-//                        $('#id_download').append('<a href="'+ data +'" download>Скачать результат</a>');
+//                        $('#id_download').append('<a href="http://xn--b1aaibmdhgx7gra.xn--p1ai/styl.js" download="результат.zip">Скачать результат</a>');
+                        $('#id_download').append('<a href="'+ data +'" download>Скачать результат</a>');
 //                        console.log(respons['result_zip']);
 //                        if (data == 'ok') {
 //                            $(start).attr('disabled', false); /* сделать кнопку активной */
