@@ -1,9 +1,10 @@
 import datetime
 import os
+import shutil
 from pathlib import Path
 from app_parser_youla import aiohttp64
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, FileResponse
 from app_parser_youla import links_items
 from app_parser_youla import pars_item
 from app_parser_youla import variables
@@ -33,13 +34,18 @@ def start(request):
     path = Path(os.getcwd(), "app_parser_youla", "result", f"result {variables.directory}")
     os.mkdir(path)
 
-    pars_item.main()  # парс собраных ссылок
+    # path_test_file = Path(path, "text.txt")
+    # with open(path_test_file, "w", encoding="utf-8") as f:
+    #     f.write('тест')
 
+    pars_item.main()  # парс собранных ссылок
+
+    path_write_arhive = Path(os.getcwd(), "app_parser_youla", "result", "result")  # путь для записи архива
+    shutil.make_archive(str(path_write_arhive), "zip", path)  # делаю архив
     # print(f"статус  {variables.work_status}")
     variables.urls_category = ''  # ссылки на категории
     variables.work_status = 0
-    # print('сработало')
-    return HttpResponse("ok", content_type='text/html')
+    return HttpResponse(f"{path_write_arhive}.zip", content_type='text/html')
 # </editor-fold>
 
 # <editor-fold desc="Отображение работы парсера в реальном времени">
@@ -117,6 +123,11 @@ def read_links_category_and_proxies_txt(request):
 # <editor-fold desc="Остановить парсер">
 def stop_parser(request):
     variables.stop = 0
+    variables.urls_category = ''  # ссылки на категории
+    variables.work_status = 0
+    variables.parsed_link_count = 0  # Обработано объявлений
+    variables.find_links = 0  # Сколько объявлений найдено
+    variables.phone_availability = 0  # Число объявлений с телефонами
     print(f'кнопка стоп {variables.stop}')
     return HttpResponse("ok", content_type='text/html')
 

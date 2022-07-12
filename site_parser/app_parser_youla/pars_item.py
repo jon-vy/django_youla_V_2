@@ -2,6 +2,8 @@ import asyncio
 import json
 import os
 import re
+import sys
+
 import aiohttp
 from asyncio import Semaphore
 from pathlib import Path
@@ -52,6 +54,10 @@ async def parser(session, semaphore, link_item):  # , owner_id, link_count
             proxies = f"http://{proxy_wrong_format[2]}:{proxy_wrong_format[3]}@{proxy_wrong_format[0]}:{proxy_wrong_format[1]}"
             # print(f"Прокси {proxies}")
             async with session.get(url=link_item, headers=headers, proxy=proxies, timeout=10, ssl=False) as r:  #
+                if variables.stop == 0:
+                    sys.exit()  # прерываю программу
+                else:
+                    pass
                 # print("после")
                 # print(f"статус код c прокси {r.status} Обработано ссылок {variables.parsed_link_count} {link_item}")
                 if r.status == 200:
@@ -98,6 +104,7 @@ async def parser(session, semaphore, link_item):  # , owner_id, link_count
                     pass
                 else:
                     PhoneNum = variables.aiohttp_64
+                    title_item = variables.aiohttp_64
 
 
                 images_list = []

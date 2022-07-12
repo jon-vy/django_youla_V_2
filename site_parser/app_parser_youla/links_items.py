@@ -1,4 +1,5 @@
 import asyncio
+import sys
 from asyncio import Semaphore
 import re
 from app_parser_youla import variables
@@ -129,6 +130,10 @@ async def parser_links_from_category(session, semaphore, url):  #
             },
         }
         async with session.post(url=url_api, headers=headers, json=json_data) as r:
+            if variables.stop == 0:
+                sys.exit()  # прерываю программу
+            else:
+                pass
             # print(url_category)
             html_cod = await r.text()
             json_data = json.loads(html_cod)
