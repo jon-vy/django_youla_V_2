@@ -1,2 +1,10 @@
-45.142.28.83:8094:whrfkfgi:hakqnkk7dxx7
-45.142.28.83:8094:whrfkfgi:hakqnkk7dxx7
+45.142.28.83:8094:mdgrfwgx:aw6kwqb3vfld
+45.137.60.112:6640:mdgrfwgx:aw6kwqb3vfld
+45.140.13.124:9137:mdgrfwgx:aw6kwqb3vfld
+45.140.13.112:9125:mdgrfwgx:aw6kwqb3vfld
+45.142.28.20:8031:mdgrfwgx:aw6kwqb3vfld
+45.140.13.119:9132:mdgrfwgx:aw6kwqb3vfld
+45.142.28.145:8156:mdgrfwgx:aw6kwqb3vfld
+45.142.28.187:8198:mdgrfwgx:aw6kwqb3vfld
+176.116.230.128:7214:mdgrfwgx:aw6kwqb3vfld
+176.116.230.151:7237:mdgrfwgx:aw6kwqb3vfld

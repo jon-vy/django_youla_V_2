@@ -12,6 +12,10 @@ import json
 
 async def parser_links_from_category(session, semaphore, url):  #
     await semaphore.acquire()
+    if variables.stop == 0:
+        sys.exit()  # прерываю программу
+    else:
+        pass
     url_api = "https://api-gw.youla.io/federation/graphql"
     page = 0
     totalProductsCount = 0
@@ -84,6 +88,10 @@ async def parser_links_from_category(session, semaphore, url):  #
 
 
     while hasNextPage == True:
+        if variables.stop == 0:
+            sys.exit()  # прерываю программу
+        else:
+            pass
         headers = {
             'User-Agent': generate_user_agent(),
             # 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:101.0) Gecko/20100101 Firefox/101.0',
@@ -159,7 +167,10 @@ async def parser_links_from_category(session, semaphore, url):  #
             page += 1
             totalProductsCount = totalProductsCount + 30
     # print(len(links_item))
-
+    if variables.stop == 0:
+        sys.exit()  # прерываю программу
+    else:
+        pass
     semaphore.release()
 
 

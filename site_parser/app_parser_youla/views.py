@@ -40,12 +40,14 @@ def start(request):
 
     pars_item.main()  # парс собранных ссылок
 
-    path_write_arhive = Path(os.getcwd(), "app_parser_youla", "result", "result")  # путь для записи архива
+    path_write_arhive = Path(os.getcwd(), "media", "result", "result")  # путь для записи архива
     shutil.make_archive(str(path_write_arhive), "zip", path)  # делаю архив
     # print(f"статус  {variables.work_status}")
     variables.urls_category = ''  # ссылки на категории
     variables.work_status = 0
-    return HttpResponse(f"{path_write_arhive}.zip", content_type='text/html')
+    return HttpResponse("ok", content_type='text/html')
+    # return HttpResponse(f"{path_write_arhive}.zip", content_type='text/html')
+    # return HttpResponse(open(f"{path_write_arhive}.zip", "rb"), content_type='text/html')
 # </editor-fold>
 
 # <editor-fold desc="Отображение работы парсера в реальном времени">
@@ -128,7 +130,7 @@ def stop_parser(request):
     variables.parsed_link_count = 0  # Обработано объявлений
     variables.find_links = 0  # Сколько объявлений найдено
     variables.phone_availability = 0  # Число объявлений с телефонами
-    print(f'кнопка стоп {variables.stop}')
+    # print(f'кнопка стоп {variables.stop}')
     return HttpResponse("ok", content_type='text/html')
 
 # </editor-fold>

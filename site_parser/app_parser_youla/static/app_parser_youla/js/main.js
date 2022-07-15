@@ -7,10 +7,7 @@ $("#start").click(function(e){// нажал на кнопку старт
     e.stopImmediatePropagation();
     $(this).attr('disabled', true); /* сделать кнопку не активной */
     $('#id_download').empty();  // Удалить ссылку на скачивание если она есть
-
 //console.log('кнопка старт');
-
-//    let links_category = document.querySelector("#id_links_category").value;  // Получил содержимое
 //    console.log(links_category);
     var links_category = $("#id_links_category").val()
     var proxies = $("#id_proxies").val()
@@ -24,26 +21,23 @@ $("#start").click(function(e){// нажал на кнопку старт
         success: function (data){ // получил данные из views.get_links_category
 //        console.log(data)
             if (data == 'ok') {
+
+
+
+
+
                 $.ajax({
                     url:"path_start_parser/",  // Старт парсера
                     beforeSend: function (){
                         $(start).attr('disabled', true); /* сделать кнопку не активной */
                     },//beforeSend
                     success: function (data){
-//                        respons = JSON.parse(data);
-                        console.log(data.length);
+//                        console.log(data.length);
                         console.log(data);
-//                        $('#id_download').append('<a href="http://xn--b1aaibmdhgx7gra.xn--p1ai/styl.js" download="результат.zip">Скачать результат</a>');
-                        $('#id_download').append('<a href="'+ data +'" download>Скачать результат</a>');
-//                        console.log(respons['result_zip']);
-//                        if (data == 'ok') {
-//                            $(start).attr('disabled', false); /* сделать кнопку активной */
-//                        }
+                       $('#id_download').append('<a href="media/result/result.zip" download>Скачать результат</a>');
                     }
-                }); // запустил парсинг
-
+                }); //  $.ajax запустил парсинг
             }
-
             else {
                 $('#id_message').text("а где ссылки на категории?");  // вывел в блоке
             }

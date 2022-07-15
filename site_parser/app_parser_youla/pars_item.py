@@ -14,6 +14,11 @@ import random
 
 async def parser(session, semaphore, link_item):  # , owner_id, link_count
     await semaphore.acquire()
+    if variables.stop == 0:
+        sys.exit()  # прерываю программу
+    else:
+        pass
+    # print(variables.work_status)
     # print(f"передана ссылка {variables.link_total_count} {link_item}")
     json_list = []
 
@@ -154,6 +159,10 @@ async def parser(session, semaphore, link_item):  # , owner_id, link_count
     variables.parsed_link_count = variables.parsed_link_count + 1  # Обработано ссылок
     # print('\033[F!')
     # print(f"Обработано ссылок {variables.parsed_link_count} из {variables.find_links}| Объявлений с телефонами {variables.phone_availability} | {link_item}")
+    if variables.stop == 0:
+        sys.exit()  # прерываю программу
+    else:
+        pass
     semaphore.release()
 
 async def gahter():
