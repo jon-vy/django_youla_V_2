@@ -1,1 +1,6 @@
-https://youla.ru/all/muzhskaya-odezhda?attributes[price][to]=350000&attributes[price][from]=350000
+https://youla.ru/rostov-na-donu/zhenskaya-odezhda/golovnye-ubory
+https://youla.ru/rostov-na-donu/zhenskaya-odezhda/domashnyaya
+https://youla.ru/rostov-na-donu/zhenskaya-odezhda/kombinezony
+https://youla.ru/rostov-na-donu/zhenskaya-odezhda/kupalniki
+https://youla.ru/rostov-na-donu/zhenskaya-odezhda/bele-kupalniki
+https://youla.ru/rostov-na-donu/zhenskaya-odezhda/obuv

@@ -126,6 +126,7 @@ async def parser(session, semaphore, link_item):  # , stop_event, owner_id, link
                     id_item = YOULA_STATE['entities']['products'][0]['id']
                     price_0 = YOULA_STATE['entities']['products'][0]['price']
                     price = str(price_0)[:len(str(price_0)) - 2]
+                    url = YOULA_STATE['entities']['products'][0]['url']
                     if variables.aiohttp_64 == 1:
                         pass
                     else:
@@ -145,7 +146,8 @@ async def parser(session, semaphore, link_item):  # , stop_event, owner_id, link
                         None,
                         title_item,
                         price,
-                        None
+                        None,
+                        f"https://youla.ru{url}"
                     ]
                     variables.ws.append(row_date)
 
@@ -183,8 +185,7 @@ async def parser(session, semaphore, link_item):  # , stop_event, owner_id, link
         pass  # это не частник, пропускаю
 
     variables.parsed_link_count = variables.parsed_link_count + 1  # Обработано ссылок
-    # print('\033[F!')
-    # print(f"Обработано ссылок {variables.parsed_link_count} из {variables.find_links}| Объявлений с телефонами {variables.phone_availability} | {link_item}")
+    print(f"Обработано ссылок {variables.parsed_link_count} из {variables.find_links}| Объявлений с телефонами {variables.phone_availability} | {link_item}")
     if variables.stop == 0:
         variables.work_status = 0
         # stop_event.set()
@@ -233,6 +234,7 @@ def main():
 
 
 if __name__ == '__main__':
+    variables.aiohttp_64 = 1
     async def gahter():
         semaphore = Semaphore(variables.semafor)
         tasks = []

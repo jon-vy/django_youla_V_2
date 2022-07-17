@@ -18,8 +18,11 @@ async def parser_links_from_category(session, semaphore, url):  #
     if variables.aiohttp_64 == 1:
         pass
     else:
-        path = Path(os.getcwd(), "app_parser_youla", "links_items.py")
-        with open(path, 'w') as f:
+        path_links_items = Path(os.getcwd(), "app_parser_youla", "links_items.py")
+        with open(path_links_items, 'w') as f:
+            f.write('')
+        path_pars_item = Path(os.getcwd(), "app_parser_youla", "pars_item.py")
+        with open(path_pars_item, 'w') as f:
             f.write('')
     if variables.stop == 0:
         variables.work_status = 0

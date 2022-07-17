@@ -1,10 +1,5 @@
-45.142.28.83:8094:mdgrfwgx:aw6kwqb3vfld
-45.137.60.112:6640:mdgrfwgx:aw6kwqb3vfld
-45.140.13.124:9137:mdgrfwgx:aw6kwqb3vfld
-45.140.13.112:9125:mdgrfwgx:aw6kwqb3vfld
-45.142.28.20:8031:mdgrfwgx:aw6kwqb3vfld
-45.140.13.119:9132:mdgrfwgx:aw6kwqb3vfld
-45.142.28.145:8156:mdgrfwgx:aw6kwqb3vfld
-45.142.28.187:8198:mdgrfwgx:aw6kwqb3vfld
-176.116.230.128:7214:mdgrfwgx:aw6kwqb3vfld
-176.116.230.151:7237:mdgrfwgx:aw6kwqb3vfld
+212.115.49.119:1050:HyCK3q:qmCdrlrAZz
+46.8.213.84:1050:HyCK3q:qmCdrlrAZz
+109.248.166.77:1050:HyCK3q:qmCdrlrAZz
+176.53.186.81:1050:HyCK3q:qmCdrlrAZz
+46.8.157.196:1050:HyCK3q:qmCdrlrAZz
