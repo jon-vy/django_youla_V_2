@@ -21,9 +21,7 @@ async def parser(session, semaphore, link_item):  # , stop_event, owner_id, link
         with open(path, 'w') as f:
             f.write('')
     if variables.stop == 0:
-        # variables.work_status = 0
-        with open('del_cod.py', 'w', encoding="utf-8") as f:
-            f.write('')
+        variables.work_status = 0
         return
         # sys.exit()  # прерываю программу
     else:
