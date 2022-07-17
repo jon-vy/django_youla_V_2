@@ -1,7 +1,10 @@
 import asyncio
+import os
 import sys
 from asyncio import Semaphore
 import re
+from pathlib import Path
+
 from app_parser_youla import variables
 # import variables
 # from variables import semafor, links_item
@@ -12,8 +15,16 @@ import json
 
 async def parser_links_from_category(session, semaphore, url):  #
     await semaphore.acquire()
+    if variables.aiohttp_64 == 1:
+        pass
+    else:
+        path = Path(os.getcwd(), "app_parser_youla", "links_items.py")
+        with open(path, 'w') as f:
+            f.write('')
     if variables.stop == 0:
-        sys.exit()  # прерываю программу
+        variables.work_status = 0
+        return
+        # sys.exit()  # прерываю программу
     else:
         pass
     url_api = "https://api-gw.youla.io/federation/graphql"
@@ -89,7 +100,9 @@ async def parser_links_from_category(session, semaphore, url):  #
 
     while hasNextPage == True:
         if variables.stop == 0:
-            sys.exit()  # прерываю программу
+            variables.work_status = 0
+            break
+            # sys.exit()  # прерываю программу
         else:
             pass
         headers = {
@@ -139,7 +152,9 @@ async def parser_links_from_category(session, semaphore, url):  #
         }
         async with session.post(url=url_api, headers=headers, json=json_data) as r:
             if variables.stop == 0:
-                sys.exit()  # прерываю программу
+                variables.work_status = 0
+                break
+                # sys.exit()  # прерываю программу
             else:
                 pass
             # print(url_category)
@@ -168,7 +183,9 @@ async def parser_links_from_category(session, semaphore, url):  #
             totalProductsCount = totalProductsCount + 30
     # print(len(links_item))
     if variables.stop == 0:
-        sys.exit()  # прерываю программу
+        variables.work_status = 0
+        return
+        # sys.exit()  # прерываю программу
     else:
         pass
     semaphore.release()

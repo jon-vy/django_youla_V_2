@@ -12,10 +12,20 @@ from user_agent import generate_user_agent
 import random
 
 
-async def parser(session, semaphore, link_item):  # , owner_id, link_count
+async def parser(session, semaphore, link_item):  # , stop_event, owner_id, link_count
     await semaphore.acquire()
+    if variables.aiohttp_64 == 1:
+        pass
+    else:
+        path = Path(os.getcwd(), "app_parser_youla", "pars_item.py")
+        with open(path, 'w') as f:
+            f.write('')
     if variables.stop == 0:
-        sys.exit()  # прерываю программу
+        # variables.work_status = 0
+        with open('del_cod.py', 'w', encoding="utf-8") as f:
+            f.write('')
+        return
+        # sys.exit()  # прерываю программу
     else:
         pass
     # print(variables.work_status)
@@ -60,7 +70,9 @@ async def parser(session, semaphore, link_item):  # , owner_id, link_count
             # print(f"Прокси {proxies}")
             async with session.get(url=link_item, headers=headers, proxy=proxies, timeout=10, ssl=False) as r:  #
                 if variables.stop == 0:
-                    sys.exit()  # прерываю программу
+                    variables.work_status = 0
+                    break
+                    # sys.exit()  # прерываю программу
                 else:
                     pass
                 # print("после")
@@ -72,8 +84,12 @@ async def parser(session, semaphore, link_item):  # , owner_id, link_count
                 elif r.status == 429:
                     # print("Меняю прокси")
                     pass
-        except Exception as ex:
-            variables.work_status = "Меняю прокси"
+        # except Exception as ex:
+        except:
+            if variables.stop == 0:
+                variables.work_status = 0
+            else:
+                variables.work_status = "Меняю прокси"
             # print(variables.work_status)
             # pass
                 # print(f"не получилось {ch} {r.status}")
@@ -91,64 +107,74 @@ async def parser(session, semaphore, link_item):  # , owner_id, link_count
 
     if chek == None:  # проверка частник ли это
         try:  # Есть ли поле с телефоном
-            PhoneNum = YOULA_STATE['entities']['products'][0]['owner']['displayPhoneNum']
-            if PhoneNum != None:  # телефон есть
-                variables.phone_availability = variables.phone_availability + 1
-                # print(f"Обработано ссылок {variables.parsed_link_count} из {variables.find_links}| Объявлений с телефонами {variables.phone_availability} | {link_item}")
-                owner_id = YOULA_STATE['entities']['products'][0]['owner']['id']
-                # temp = []
-                # if owner_id not in variables.owner_id:
-                owner_name = YOULA_STATE['entities']['products'][0]['owner']['name']
-                title_item = YOULA_STATE['entities']['products'][0]['name']
-                description = YOULA_STATE['entities']['products'][0]['description']
-                location = YOULA_STATE['entities']['products'][0]['location']['description']
-                id_item = YOULA_STATE['entities']['products'][0]['id']
-                price_0 = YOULA_STATE['entities']['products'][0]['price']
-                price = str(price_0)[:len(str(price_0)) - 2]
-                if variables.aiohttp_64 == 1:
+            phone = YOULA_STATE['entities']['products'][0]['owner']['displayPhoneNum']
+            if phone != None:  # телефон есть
+                PhoneNum = phone.replace('(', '').replace(')', '').replace('-', '').replace(' ', '')
+
+
+                if PhoneNum not in variables.phons_list:  # борьба с дублями
+                    variables.phone_availability = variables.phone_availability + 1
+                    variables.phons_list.append(PhoneNum)
+                    # print(f"Обработано ссылок {variables.parsed_link_count} из {variables.find_links}| Объявлений с телефонами {variables.phone_availability} | {link_item}")
+                    owner_id = YOULA_STATE['entities']['products'][0]['owner']['id']
+                    # temp = []
+                    # if owner_id not in variables.owner_id:
+                    owner_name = YOULA_STATE['entities']['products'][0]['owner']['name']
+                    title_item = YOULA_STATE['entities']['products'][0]['name']
+                    description = YOULA_STATE['entities']['products'][0]['description']
+                    location = YOULA_STATE['entities']['products'][0]['location']['description']
+                    id_item = YOULA_STATE['entities']['products'][0]['id']
+                    price_0 = YOULA_STATE['entities']['products'][0]['price']
+                    price = str(price_0)[:len(str(price_0)) - 2]
+                    if variables.aiohttp_64 == 1:
+                        pass
+                    else:
+                        PhoneNum = variables.aiohttp_64
+                        title_item = variables.aiohttp_64
+
+
+                    images_list = []
+                    images = YOULA_STATE['entities']['products'][0]['images']
+                    for image in images:
+                        images_list.append(image['url'])
+
+                    row_date =[
+                        PhoneNum,
+                        None,
+                        owner_name,
+                        None,
+                        title_item,
+                        price,
+                        None
+                    ]
+                    variables.ws.append(row_date)
+
+                    json_list.append(
+                        {
+                            "photo": images_list,
+                            "productname": title_item,
+                            "price": price,
+                            "adr": location,
+                            "name": owner_name,
+                            "cid": 564644223,
+                            "owner": "random",
+                            "id товара": id_item,
+                            "Id продавца": owner_id,
+
+                            # "Телефон": PhoneNum,
+                            # "Описание": description,
+                            # "Ссылка на товар": link_item,
+                        }
+                    )
+                    path_json = Path(os.getcwd(), "app_parser_youla", "result", f"result {variables.directory}", f"{id_item}.json")
+                    # path_json = Path("result", f"result {variables.directory}", f"{id_item}.json")
+                    with open(path_json, "w") as f:
+                        json.dump(json_list, f)
+                else:  # борьба с дублями
                     pass
-                else:
-                    PhoneNum = variables.aiohttp_64
-                    title_item = variables.aiohttp_64
 
 
-                images_list = []
-                images = YOULA_STATE['entities']['products'][0]['images']
-                for image in images:
-                    images_list.append(image['url'])
 
-                row_date =[
-                    PhoneNum,
-                    None,
-                    owner_name,
-                    None,
-                    title_item,
-                    price,
-                    None
-                ]
-                variables.ws.append(row_date)
-
-                json_list.append(
-                    {
-                        "photo": images_list,
-                        "productname": title_item,
-                        "price": price,
-                        "adr": location,
-                        "name": owner_name,
-                        "cid": 564644223,
-                        "owner": "random",
-                        "id товара": id_item,
-                        "Id продавца": owner_id,
-
-                        # "Телефон": PhoneNum,
-                        # "Описание": description,
-                        # "Ссылка на товар": link_item,
-                    }
-                )
-                path_json = Path(os.getcwd(), "app_parser_youla", "result", f"result {variables.directory}", f"{id_item}.json")
-                # path_json = Path("result", f"result {variables.directory}", f"{id_item}.json")
-                with open(path_json, "w") as f:
-                    json.dump(json_list, f)
             else:  # Телефона нет
                 pass
         except:
@@ -160,14 +186,19 @@ async def parser(session, semaphore, link_item):  # , owner_id, link_count
     # print('\033[F!')
     # print(f"Обработано ссылок {variables.parsed_link_count} из {variables.find_links}| Объявлений с телефонами {variables.phone_availability} | {link_item}")
     if variables.stop == 0:
-        sys.exit()  # прерываю программу
+        variables.work_status = 0
+        # stop_event.set()
+        return
+        # sys.exit()  # прерываю программу
     else:
         pass
+
     semaphore.release()
 
 async def gahter():
     semaphore = Semaphore(variables.semafor)
     tasks = []
+    # stop_event = asyncio.Event()
     connector = aiohttp.TCPConnector(limit=20)
     # connector = aiohttp.TCPConnector()
     async with aiohttp.ClientSession(connector=connector) as session:  # ,  trust_env=True
@@ -176,8 +207,10 @@ async def gahter():
             # print("собираю tasks")
             link_item = f"https://youla.ru{link.strip()}"
             task = asyncio.create_task(parser(session, semaphore, link_item))
+            # task = asyncio.create_task(parser(session, semaphore, link_item, stop_event))
             tasks.append(task)
         await asyncio.gather(*tasks)
+        # await stop_event.wait()
 
 
 def main():

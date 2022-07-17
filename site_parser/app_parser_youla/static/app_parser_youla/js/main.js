@@ -57,7 +57,7 @@ $.ajax({
     success: function (data){
 //        respons = JSON.parse(data);
 //        console.log(data['find_links']);
-//        console.log(data);
+        console.log(data);
 //        console.log(respons['find_links']);
         $('#id_find_links').text(data['find_links']);  // вывел в блоке
         $('#id_parsed_link_count').text(data['parsed_link_count']);  // вывел в блоке

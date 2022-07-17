@@ -18,6 +18,7 @@ def index(request):
 
 # <editor-fold desc="Стартовая функция">
 def start(request):
+    variables.phons_list = []
     variables.stop = 1
     variables.work_status = 1  # Статус работы. 0 - не работает, 1 - работает
     variables.phone_availability = 0  # Число объявлений с телефонами
@@ -32,13 +33,17 @@ def start(request):
     today = datetime.datetime.today()
     variables.directory = str(today.strftime("%Y-%m-%d_%H.%M.%S"))
     path = Path(os.getcwd(), "app_parser_youla", "result", f"result {variables.directory}")
-    os.mkdir(path)
+    try:
+        os.mkdir(path)
+    except Exception as ex:
+        print(f"ошибка при создании папки {ex}")
 
     # path_test_file = Path(path, "text.txt")
     # with open(path_test_file, "w", encoding="utf-8") as f:
     #     f.write('тест')
 
     pars_item.main()  # парс собранных ссылок
+
 
     path_write_arhive = Path(os.getcwd(), "media", "result", "result")  # путь для записи архива
     shutil.make_archive(str(path_write_arhive), "zip", path)  # делаю архив
